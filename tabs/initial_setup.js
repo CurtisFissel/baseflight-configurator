@@ -102,6 +102,13 @@ function tab_initialize_initial_setup() {
                 break;
         }
 
+        jQuery.fn.rotate = function(degrees) {
+            $(this).css({'-webkit-transform' : 'rotate('+ degrees +'deg)',
+                         '-moz-transform' : 'rotate('+ degrees +'deg)',
+                         '-ms-transform' : 'rotate('+ degrees +'deg)',
+                         'transform' : 'rotate('+ degrees +'deg)'});
+        };
+
         $('span.model').text(chrome.i18n.getMessage('initialSetupModel', [str]));
 
         // UI Hooks
@@ -240,6 +247,15 @@ function tab_initialize_initial_setup() {
             $('.bat-mah-drawn').text(chrome.i18n.getMessage('initialSetupBatteryMahValue', [ANALOG.mAhdrawn]));
             $('.bat-mah-drawing').text(chrome.i18n.getMessage('initialSetupBatteryAValue', [ANALOG.amperage.toFixed(2)]));
             $('.rssi').text(chrome.i18n.getMessage('initialSetupRSSIValue', [((ANALOG.rssi / 1023) * 100).toFixed(0)]));
+
+            // Update Compass
+            if (!bit_check(CONFIG.activeSensors, 2)) { // check for mag
+                $('.compass-rose').hide();
+            } 
+            else {
+                $('.compass-degrees').text(chrome.i18n.getMessage('initialSetupCompassDegrees', [SENSOR_DATA.kinematics[2]]));
+                $('.compass-arrow').rotate(SENSOR_DATA.kinematics[2]);
+            };
 
             // Update cube
             var cube = $('div#cube');

@@ -199,6 +199,12 @@
     "initialSetupBatteryHead": {
         "message": "Battery"
     },
+    "initialSetupCompassHead": {
+        "message": "Compass"
+    },
+    "initialSetupCompassDegrees": {
+        "message": "$1\xB0"
+    },
     "initialSetupMinCellV": {
         "message": "Min Cell Voltage:"
     },
